@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage'
 import { StyleSheet, View, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from "@expo/vector-icons";
-import Toast from "react-native-root-toast"
+//import Toast from "react-native-root-toast"
+import DropdownAlert from 'react-native-dropdownalert';
 
 export default class App extends Component {
   constructor({navigation}) {
@@ -18,12 +19,7 @@ export default class App extends Component {
     };
   }
 
-  shortToast = (message) => {
-    Toast.show(message, {
-      duration: Toast.durations.LONG,
-      position: Toast.positions.BOTTOM,
-    });
-  };
+  
 
  goBack=()=>{
     this.props.navigation.replace('Signup');
@@ -33,6 +29,7 @@ export default class App extends Component {
     console.log(Last_Name)
     return (
       <View style={styles.MainContainer}>
+        <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
           <Text style={styles.texts}>Hello.</Text>
           <Text style={styles.texts}>Welcome Back</Text>
        <View>
@@ -66,7 +63,8 @@ export default class App extends Component {
              Last_Name:<Text>{Last_Name}</Text>
         });
             else{
-                this.shortToast("Invalid Email or Password" );
+              
+                this.dropDownAlertRef.alertWithType('error', 'Error', 'Invalid Email or Password');
             }
            }
            }
@@ -75,7 +73,7 @@ export default class App extends Component {
         </TouchableOpacity>
         <TouchableOpacity
            onPress={this.goBack}>
-          <Text  style={{ fontWeight: "bold", fontSize: 16, color: "#3498DB",marginLeft:'10%' }}> Back To SignUp </Text>
+          <Text  style={{ fontWeight: "bold", fontSize: 16, color: "#3498DB",marginLeft:'10%' }}> Back To Register Screen </Text>
         </TouchableOpacity>
         <Text style={styles.text}> {this.state.getValue} </Text>
         <Text style={styles.text}> {this.state.getPass} </Text>

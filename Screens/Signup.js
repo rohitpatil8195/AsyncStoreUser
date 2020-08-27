@@ -4,7 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import { StyleSheet, View, TextInput, Button, Alert, Text, TouchableOpacity,ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5 } from "@expo/vector-icons";
-import Toast from "react-native-root-toast"
+//import Toast from "react-native-root-toast"
+import DropdownAlert from 'react-native-dropdownalert';
 export default class App extends Component {
   constructor() {
     super();
@@ -37,16 +38,17 @@ export default class App extends Component {
             if (this.state.pass.length >= 8 ) {
                 pass = true; 
               } else {
-                this.shortToast("Password is too short" );
+                   this.dropDownAlertRef.alertWithType('warn', 'Info', 'Password is too short');
               }
           } else {
-            this.shortToast("Enter Correct Email");
+          
+            this.dropDownAlertRef.alertWithType('warn', 'Info', 'Enter Correct Email');
           }
       } else {
-        this.shortToast("Enter Last Name");
+        this.dropDownAlertRef.alertWithType('warn', 'Info', 'Enter Last Name');
       }
     } else {
-      this.shortToast("Enter First Name");
+      this.dropDownAlertRef.alertWithType('warn', 'Info', 'Enter FIrst Name');
     }
     
     if(this.state.textInputData && this.state.pass && textInputData && pass && First_name && Last_Name){
@@ -55,8 +57,8 @@ export default class App extends Component {
       AsyncStorage.setItem('any_key',  this.state.pass);
       AsyncStorage.setItem('First_name',  this.state.First_name);
       AsyncStorage.setItem('Last_Name',  this.state.Last_Name);
-    
-      alert('User Created Succesfully');
+      this.dropDownAlertRef.alertWithType('success', 'Success', 'User Registerd Succesfully');
+      //alert('User Created Succesfully');
 
       console.log( this.state.Last_Name)
  
@@ -102,6 +104,9 @@ export default class App extends Component {
   render() {
     return (
          <SafeAreaView style={styles.MainContainer}>
+         
+           <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
+     
           <View style={styles.Welcome}>
          <Text style={styles.texts}>Create New Account Here</Text>
          <View>
@@ -141,7 +146,7 @@ export default class App extends Component {
         <TouchableOpacity
           onPress={this.saveValueFunction}
           style={styles.button}>
-          <Text style={styles.buttonText}> signup </Text>
+          <Text style={styles.buttonText}> Register </Text>
         </TouchableOpacity>
        
         <TouchableOpacity
@@ -155,7 +160,7 @@ export default class App extends Component {
 }
 const styles = StyleSheet.create({
   MainContainer: {
-  
+   
      flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -170,6 +175,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: "black",
         fontWeight: "bold",
+        marginLeft:20
       },
         inputBox: {
            
